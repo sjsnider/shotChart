@@ -1,3 +1,4 @@
+var players = [];
 var player = {
   id: 1,
   shotLocations: []
@@ -17,323 +18,399 @@ var axes = {
   x : d3.scale.linear().domain([0,50]).range([0, court.width]),
   y : d3.scale.linear().domain([0,38]).range([0, court.height])
 };
+var data = getData();
+// debugger;
+var alreadyHave = function(player, array){
+  for (var x=0; x<array.length; x++){ 
+    if (array[x].name===player){
+      return x;
+    }
+  }
+  return false;
+};
 
-player.shotLocations.push(
-  {
-        "player": "Alan Anderson",
-        "result": "missed",
-        "shotdistance": "10ft",
-        "x": 15,
-        "y": 8,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "made",
-        "shotdistance": "1ft",
-        "x": 24,
-        "y": 6,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "missed",
-        "shotdistance": "23ft",
-        "x": 2,
-        "y": 8,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "made",
-        "shotdistance": "25ft",
-        "x": 7,
-        "y": 24,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "missed",
-        "shotdistance": "25ft",
-        "x": 15,
-        "y": 29,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "missed",
-        "shotdistance": "26ft",
-        "x": 4,
-        "y": 21,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "missed",
-        "shotdistance": "2ft",
-        "x": 23,
-        "y": 7,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      },
-      {
-        "player": "Alan Anderson",
-        "result": "made",
-        "shotdistance": "2ft",
-        "x": 23,
-        "y": 6,
-        makes: Math.floor(Math.random()*50),
-        attempts: Math.floor(Math.random()*100)
-      });
-     // {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "0ft",
-     //    "x": 25,
-     //    "y": 88,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "10ft",
-     //    "x": 35,
-     //    "y": 85,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "10ft",
-     //    "x": 18,
-     //    "y": 81,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "13ft",
-     //    "x": 13,
-     //    "y": 82,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "14ft",
-     //    "x": 11,
-     //    "y": 85,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "14ft",
-     //    "x": 14,
-     //    "y": 79,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "14ft",
-     //    "x": 13,
-     //    "y": 81,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "15ft",
-     //    "x": 11,
-     //    "y": 83,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "16ft",
-     //    "x": 11,
-     //    "y": 80,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "17ft",
-     //    "x": 18,
-     //    "y": 72,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "17ft",
-     //    "x": 12,
-     //    "y": 77,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "17ft",
-     //    "x": 25,
-     //    "y": 71,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "18ft",
-     //    "x": 39,
-     //    "y": 77,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "18ft",
-     //    "x": 11,
-     //    "y": 77,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 25,
-     //    "y": 87,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 26,
-     //    "y": 88,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 24,
-     //    "y": 87,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 25,
-     //    "y": 87,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 26,
-     //    "y": 88,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "1ft",
-     //    "x": 24,
-     //    "y": 88,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "2ft",
-     //    "x": 25,
-     //    "y": 86,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "2ft",
-     //    "x": 23,
-     //    "y": 87,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "2ft",
-     //    "x": 27,
-     //    "y": 87,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "3ft",
-     //    "x": 27,
-     //    "y": 86,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "6ft",
-     //    "x": 19,
-     //    "y": 86,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "made",
-     //    "shotdistance": "8ft",
-     //    "x": 24,
-     //    "y": 80,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  },
-     //  {
-     //    "player": "Al Jefferson",
-     //    "result": "missed",
-     //    "shotdistance": "9ft",
-     //    "x": 24,
-     //    "y": 79,
-     //    makes: Math.floor(Math.random()*50),
-     //    attempts: Math.floor(Math.random()*100)
-     //  });
+var alreadyHaveDate = function(date, obj){
+  for (var x=0; x<obj.shotsByGame.length; x++){
+    if(date === obj.shotsByGame[x].date){
+      return x;
+    }
+  }
+  return false;
+};
+
+var playersArray = [];
+var playerObj = {};
+for (var i=0; i<data.rows.length; i++){
+  var index = alreadyHave(data.rows[i].player, playersArray);
+  if (index !== false){
+    var dateIndex = alreadyHaveDate(data.rows[i].Date, playersArray[index]);
+    if (dateIndex !== false){
+      playersArray[index].shotsByGame[dateIndex].shots.push({x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result});
+    }else{
+      playersArray[index].shotsByGame.push({date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result}]});
+    }
+  }else{
+    playersArray.push({name: data.rows[i].player, shotsByGame: [{date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result}]}] });
+  }
+}
+// debugger;
+player.shotLocations[0] = (playersArray[84].shotsByGame[0].shots);
+player.shotLocations[1] = (playersArray[84].shotsByGame[1].shots);
+player.shotLocations[2] = (playersArray[84].shotsByGame[2].shots);
+player.shotLocations[3] = (playersArray[84].shotsByGame[3].shots);
+player.shotLocations[4] = (playersArray[84].shotsByGame[4].shots);
+
+var removeDupes = function(dupArray){
+  for(var i=0; i<dupArray.length; i++){
+    if(dupArray[i].result==='made'){
+      dupArray[i].makes = 1;
+    } else {
+      dupArray[i].makes = 0;
+    }
+    dupArray[i].attempts = 1;
+    if(i!==dupArray.length-1){
+      for(var j=i+1;j<dupArray.length;j++){    
+        if(dupArray[i].x===dupArray[j].x && dupArray[i].y===dupArray[j].y){
+          if(dupArray[j].result==='made')
+            dupArray[i].makes++;
+          dupArray[i].attempts++;
+          dupArray.splice(j,1);
+          j--;
+        }
+      }
+    }
+    dupArray[i].shotPct = dupArray[i].makes/dupArray[i].attempts;
+  }
+  return dupArray;
+};
+// debugger;
+renderArray =[];
+for (var x=0; x<5; x++){
+  renderArray.push(removeDupes(playersArray[84].shotsByGame[x].shots));
+  // debugger;
+}
+// var renderArray = removeDupes(player.shotLocations[0]);
+// var renderArray2 = removeDupes(player.shotLocations[1]);
+// var renderArray3 = removeDupes(player.shotLocations[2]);
+// var renderArray4 = removeDupes(player.shotLocations[3]);
+// var renderArray5 = removeDupes(player.shotLocations[4]);
+// debugger;
+// player.shotLocations.push(
+//   {
+//         "player": "Alan Anderson",
+//         "result": "missed",
+//         "shotdistance": "10ft",
+//         "x": 15,
+//         "y": 8,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "made",
+//         "shotdistance": "1ft",
+//         "x": 24,
+//         "y": 6,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "missed",
+//         "shotdistance": "23ft",
+//         "x": 2,
+//         "y": 8,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "made",
+//         "shotdistance": "25ft",
+//         "x": 7,
+//         "y": 24,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "missed",
+//         "shotdistance": "25ft",
+//         "x": 15,
+//         "y": 29,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "missed",
+//         "shotdistance": "26ft",
+//         "x": 4,
+//         "y": 21,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "missed",
+//         "shotdistance": "2ft",
+//         "x": 23,
+//         "y": 7,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       },
+//       {
+//         "player": "Alan Anderson",
+//         "result": "made",
+//         "shotdistance": "2ft",
+//         "x": 23,
+//         "y": 6,
+//         makes: Math.floor(Math.random()*50),
+//         attempts: Math.floor(Math.random()*100)
+//       });
+//      // {
+//      //    "player": "Al Jefferson",
+//      //    "result": "made",
+//      //    "shotdistance": "0ft",
+//      //    "x": 25,
+//      //    "y": 88,
+//      //    makes: Math.floor(Math.random()*50),
+//      //    attempts: Math.floor(Math.random()*100)
+//      //  },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "10ft",
+//       //   "x": 35,
+//       //   "y": 85,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "10ft",
+//       //   "x": 18,
+//       //   "y": 81,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "13ft",
+//       //   "x": 13,
+//       //   "y": 82,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "14ft",
+//       //   "x": 11,
+//       //   "y": 85,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "14ft",
+//       //   "x": 14,
+//       //   "y": 79,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "14ft",
+//       //   "x": 13,
+//       //   "y": 81,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "15ft",
+//       //   "x": 11,
+//       //   "y": 83,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "16ft",
+//       //   "x": 11,
+//       //   "y": 80,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "17ft",
+//       //   "x": 18,
+//       //   "y": 72,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "17ft",
+//       //   "x": 12,
+//       //   "y": 77,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "17ft",
+//       //   "x": 25,
+//       //   "y": 71,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "18ft",
+//       //   "x": 39,
+//       //   "y": 77,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "18ft",
+//       //   "x": 11,
+//       //   "y": 77,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 25,
+//       //   "y": 87,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 26,
+//       //   "y": 88,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 24,
+//       //   "y": 87,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 25,
+//       //   "y": 87,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 26,
+//       //   "y": 88,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "1ft",
+//       //   "x": 24,
+//       //   "y": 88,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "2ft",
+//       //   "x": 25,
+//       //   "y": 86,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "2ft",
+//       //   "x": 23,
+//       //   "y": 87,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "2ft",
+//       //   "x": 27,
+//       //   "y": 87,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "3ft",
+//       //   "x": 27,
+//       //   "y": 86,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "6ft",
+//       //   "x": 19,
+//       //   "y": 86,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "made",
+//       //   "shotdistance": "8ft",
+//       //   "x": 24,
+//       //   "y": 80,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // },
+//       // {
+//       //   "player": "Al Jefferson",
+//       //   "result": "missed",
+//       //   "shotdistance": "9ft",
+//       //   "x": 24,
+//       //   "y": 79,
+//       //   makes: Math.floor(Math.random()*50),
+//       //   attempts: Math.floor(Math.random()*100)
+//       // });
 
 // debugger;
 
