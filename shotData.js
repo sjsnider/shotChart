@@ -45,20 +45,23 @@ for (var i=0; i<data.rows.length; i++){
   if (index !== false){
     var dateIndex = alreadyHaveDate(data.rows[i].Date, playersArray[index]);
     if (dateIndex !== false){
-      playersArray[index].shotsByGame[dateIndex].shots.push({x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result});
+      playersArray[index].shotsByGame[dateIndex].shots.push({x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result});
     }else{
-      playersArray[index].shotsByGame.push({date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result}]});
+      playersArray[index].shotsByGame.push({date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]});
     }
   }else{
-    playersArray.push({name: data.rows[i].player, shotsByGame: [{date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: data.rows[i].distance, result: data.rows[i].result}]}] });
+    playersArray.push({name: data.rows[i].player, shotsByGame: [{date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]}] });
   }
 }
+// for (var j=0; j<playersArray[84].shotsByGame.length;j++){
+//   player.shotLocations[j] = (playersArray[84].shotsByGame[j].shots);
+// }
 // debugger;
-player.shotLocations[0] = (playersArray[84].shotsByGame[0].shots);
-player.shotLocations[1] = (playersArray[84].shotsByGame[1].shots);
-player.shotLocations[2] = (playersArray[84].shotsByGame[2].shots);
-player.shotLocations[3] = (playersArray[84].shotsByGame[3].shots);
-player.shotLocations[4] = (playersArray[84].shotsByGame[4].shots);
+// player.shotLocations[0] = (playersArray[84].shotsByGame[0].shots);
+// player.shotLocations[1] = (playersArray[84].shotsByGame[1].shots);
+// player.shotLocations[2] = (playersArray[84].shotsByGame[2].shots);
+// player.shotLocations[3] = (playersArray[84].shotsByGame[3].shots);
+// player.shotLocations[4] = (playersArray[84].shotsByGame[4].shots);
 
 var removeDupes = function(dupArray){
   for(var i=0; i<dupArray.length; i++){
@@ -85,10 +88,295 @@ var removeDupes = function(dupArray){
 };
 // debugger;
 renderArray =[];
-for (var x=0; x<5; x++){
+var len = playersArray[84].shotsByGame.length;
+// var len = 6;
+for (var x=0; x<len; x++){
   renderArray.push(removeDupes(playersArray[84].shotsByGame[x].shots));
-  // debugger;
 }
+// renderArray[4] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+// renderArray[3] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+// renderArray[2] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+// renderArray[1] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+
+// renderArray[0] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+// renderArray[5] = [
+//   {
+// attempts: 1,
+// distance: "18ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 37,
+// y: 74
+//   },
+//   {
+// attempts: 2,
+// distance: "24ft",
+// makes: 2,
+// result: "made",
+// shotPct: 1,
+// x: 2,
+// y: 80
+//   },
+//   {
+// attempts: 1,
+// distance: "21ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 15,
+// y: 70
+//   },
+//   {
+// attempts: 1,
+// distance: "2ft",
+// makes: 1,
+// result: "made",
+// shotPct: 1,
+// x: 27,
+// y: 88
+//   },
+//   {
+// attempts: 1,
+// distance: "1ft",
+// makes: 0,
+// result: "missed",
+// shotPct: 0,
+// x: 26,
+// y: 88
+//   }
+// ];
+
 // var renderArray = removeDupes(player.shotLocations[0]);
 // var renderArray2 = removeDupes(player.shotLocations[1]);
 // var renderArray3 = removeDupes(player.shotLocations[2]);
