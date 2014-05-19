@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	 <script src="jquery.js"></script>
+   
+    <script src="jquery.parse.min.js"></script>
+    <link rel='stylesheet' href='styles.css'>
+  </head>
+  <body>
+
+
+	<input type="file" id="file" multiple>
+	<button class="test">Submit</button>
+	<script>
+    var run = function(){
+    	debugger;
+    			$('input[type=file]').parse({
+    				complete: function(data) {
+        			document.write("Parse results:", JSON.stringify(data.results));
+    				}
+    			});
+			}
+    $('button').on('click', run);
+</script>
+	  </body>
+</html>
+
