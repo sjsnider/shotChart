@@ -1,3 +1,4 @@
+var len;
 var svg = d3.select('body').append('svg')
             .attr('width', court.width)
             .attr('height', court.height)
@@ -199,17 +200,34 @@ var generateRandomString = function(length) {
 
   return result;
 }
-
-initialData(renderArray[0]);
+var renderArray =[];
+$.get(
+    "/getData",
+    {name : 'Monta Ellis' },
+    function(data) {
+       // console.log('page content: ' + data.data);
+        var playersArray = JSON.parse(data.data);
+        // console.log(playersArray.shotsByGame);
+        var len = playersArray.shotsByGame.length;
+        console.log(len);
+        // var len = 6;
+        for (var x=0; x<len; x++){
+          renderArray.push(removeDupes(playersArray.shotsByGame[x].shots));
+        }
+        initialData(renderArray[0]);
+        console.log(renderArray[1]);
+        for(var i=1;i<len; i++){
+          console.log('hello');
+          var random = generateRandomString(8);
+          doSetTimeout(i, random);
+        }
+    }
+);
 
 function doSetTimeout(i, random){
-  setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*2000);
+  setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*1500);
 }
-
-for(var i=1;i<len; i++){
-  var random = generateRandomString(8);
-  doSetTimeout(i, random);
-}
+console.log(len);
 
 
               // });

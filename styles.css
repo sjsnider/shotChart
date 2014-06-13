@@ -9,6 +9,8 @@ Feel free to use it if you like. */
 
 .svg {
   background-image : url(halfcourt.png);
+  float: left;
+  position: relative;
 }
 
 /*.enemy {
@@ -22,3 +24,35 @@ Feel free to use it if you like. */
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 */
+.gameNum {
+	font-size: 35px;
+}
+
+img{
+     vertical-align: bottom;   
+}
+
+#smallone{
+    top: 490px;
+    left: 165px;
+    position: absolute;   
+}
+
+.playerName, .playerSeason{
+    top: 0px;
+    left: 313px;
+    font-size: 30px;
+    position: absolute;  
+    font-family: fantasy; 
+}
+.playerSeason{
+	top: 25px;
+    left: 275px;
+}
+.twitter{
+	top: 525px;
+	left: 325px;
+	font-size: 20px;
+    position: absolute;  
+    font-family: script; 
+}

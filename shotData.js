@@ -17,51 +17,51 @@ var rand = function(func, num){
 var axes = {
   x : d3.scale.linear().domain([0,50]).range([0, court.width]),
   y : d3.scale.linear().domain([0,38]).range([0, court.height])
-};
-var data = getData();
-// debugger;
-var alreadyHave = function(player, array){
-  for (var x=0; x<array.length; x++){ 
-    if (array[x].name===player){
-      return x;
-    }
-  }
-  return false;
-};
+};  
+// var data = getData();
+// // debugger;
+// var alreadyHave = function(player, array){
+//   for (var x=0; x<array.length; x++){ 
+//     if (array[x].name===player){
+//       return x;
+//     }
+//   }
+//   return false;
+// };
 
-var alreadyHaveDate = function(date, obj){
-  for (var x=0; x<obj.shotsByGame.length; x++){
-    if(date === obj.shotsByGame[x].date){
-      return x;
-    }
-  }
-  return false;
-};
+// var alreadyHaveDate = function(date, obj){
+//   for (var x=0; x<obj.shotsByGame.length; x++){
+//     if(date === obj.shotsByGame[x].date){
+//       return x;
+//     }
+//   }
+//   return false;
+// };
 
-var playersArray = [];
-var playerObj = {};
-for (var i=0; i<data.rows.length; i++){
-  var index = alreadyHave(data.rows[i].player, playersArray);
-  if (index !== false){
-    var dateIndex = alreadyHaveDate(data.rows[i].Date, playersArray[index]);
-    if (dateIndex !== false){
-      playersArray[index].shotsByGame[dateIndex].shots.push({x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result});
-    }else{
-      playersArray[index].shotsByGame.push({date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]});
-    }
-  }else{
-    playersArray.push({name: data.rows[i].player, shotsByGame: [{date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]}] });
-  }
-}
-// for (var j=0; j<playersArray[84].shotsByGame.length;j++){
-//   player.shotLocations[j] = (playersArray[84].shotsByGame[j].shots);
+// var playersArray = [];
+// var playerObj = {};
+// for (var i=0; i<data.rows.length; i++){
+//   var index = alreadyHave(data.rows[i].player, playersArray);
+//   if (index !== false){
+//     var dateIndex = alreadyHaveDate(data.rows[i].Date, playersArray[index]);
+//     if (dateIndex !== false){
+//       playersArray[index].shotsByGame[dateIndex].shots.push({x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result});
+//     }else{
+//       playersArray[index].shotsByGame.push({date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]});
+//     }
+//   }else{
+//     playersArray.push({name: data.rows[i].player, shotsByGame: [{date: data.rows[i].Date, shots: [{x:data.rows[i].x, y:data.rows[i].y, distance: parseFloat(data.rows[i].distance), result: data.rows[i].result}]}] });
+//   }
 // }
-// debugger;
-// player.shotLocations[0] = (playersArray[84].shotsByGame[0].shots);
-// player.shotLocations[1] = (playersArray[84].shotsByGame[1].shots);
-// player.shotLocations[2] = (playersArray[84].shotsByGame[2].shots);
-// player.shotLocations[3] = (playersArray[84].shotsByGame[3].shots);
-// player.shotLocations[4] = (playersArray[84].shotsByGame[4].shots);
+// // for (var j=0; j<playersArray[84].shotsByGame.length;j++){
+// //   player.shotLocations[j] = (playersArray[84].shotsByGame[j].shots);
+// // }
+// // debugger;
+// // player.shotLocations[0] = (playersArray[84].shotsByGame[0].shots);
+// // player.shotLocations[1] = (playersArray[84].shotsByGame[1].shots);
+// // player.shotLocations[2] = (playersArray[84].shotsByGame[2].shots);
+// // player.shotLocations[3] = (playersArray[84].shotsByGame[3].shots);
+// // player.shotLocations[4] = (playersArray[84].shotsByGame[4].shots);
 
 var removeDupes = function(dupArray){
   for(var i=0; i<dupArray.length; i++){
@@ -87,12 +87,21 @@ var removeDupes = function(dupArray){
   return dupArray;
 };
 // debugger;
-renderArray =[];
-var len = playersArray[84].shotsByGame.length;
-// var len = 6;
-for (var x=0; x<len; x++){
-  renderArray.push(removeDupes(playersArray[84].shotsByGame[x].shots));
-}
+// var renderArray =[];
+// $.get(
+//     "/getData",
+//     {name : 'Monta Ellis' },
+//     function(data) {
+//        console.log('page content: ' + data.data);
+//         var playersArray = JSON.parse(data.data);
+//         console.log(playersArray.shotsByGame);
+//         var len = playersArray.shotsByGame.length;
+//         // var len = 6;
+//         for (var x=0; x<len; x++){
+//           renderArray.push(removeDupes(playersArray.shotsByGame[x].shots));
+//         }
+//     }
+// );
 // renderArray[4] = [
 //   {
 // attempts: 1,

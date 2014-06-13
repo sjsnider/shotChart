@@ -1,3 +1,5 @@
 .DS_Store
 .nfs*
 ._*
+node_modules
+.jshintrc
