@@ -5,8 +5,8 @@ var player = {
 };
 
 var court ={
-  width: 750,
-  height: 570
+  width: 650,
+  height: 494
 };
 
 
@@ -17,7 +17,47 @@ var rand = function(func, num){
 var axes = {
   x : d3.scale.linear().domain([0,50]).range([0, court.width]),
   y : d3.scale.linear().domain([0,38]).range([0, court.height])
-};  
+}; 
+var getAvgByDist = function(dist){
+  if(dist>=0&&dist<3){
+    return pctDistance[0];
+  } else if (dist>=3&&dist<10){
+    return pctDistance[1];
+  } else if(dist>=10&&dist<16){
+    return pctDistance[2];
+  }else if(dist>=16&&dist<23){
+    return pctDistance[3];
+  }else {
+    return pctDistance[4];
+  }
+}; 
+var getColorRange = function(diff){
+  debugger;
+  if(diff>=16){
+    return colorRange[0];
+  } else if (diff>=12&&diff<16){
+    return colorRange[1];
+  } else if (diff>=8&&diff<12){
+    return colorRange[2];
+  } else if (diff>=4&&diff<8){
+    return colorRange[3];
+  } else if (diff>=0&&diff<4){
+    return colorRange[4];
+  } else if (diff>=-4&&diff<0){
+    return colorRange[5];
+  } else if (diff>=-8&&diff<-4){
+    return colorRange[6];
+  } else if (diff>=-12&&diff<-8){
+    return colorRange[7];
+  } else if (diff>=-16&&diff<-12){
+    return colorRange[8];
+  } else {
+    return colorRange[9];
+  }
+};
+
+var pctDistance = [64.6, 39.8, 41.7, 38.3, 36];
+var colorRange = ['#FF0000', '#FF3300', '#FF6600', '#FF9900', '#FFFF00', '#FFFF66', '#CCFF33', '#CCFF66', '#CCFF99', '#CCFFCC'];
 // var data = getData();
 // // debugger;
 // var alreadyHave = function(player, array){
