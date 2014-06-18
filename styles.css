@@ -25,6 +25,9 @@ Feel free to use it if you like. */
 
 */
 .gameNum {
+  position: absolute; 
+  bottom:20px;
+  left:300px;
 	font-size: 35px;
 }
 
@@ -33,25 +36,32 @@ img{
 }
 
 #smallone{
-    top: 490px;
-    left: 165px;
+    top: 350px;
+    left: 65px;
+    position: absolute;   
+}
+
+#players{
+    top: 10px;
+    left: 205px;
     position: absolute;   
 }
 
 .playerName, .playerSeason{
     top: 0px;
-    left: 313px;
+    left: 213px;
     font-size: 30px;
     position: absolute;  
     font-family: fantasy; 
+
 }
 .playerSeason{
 	top: 25px;
-    left: 275px;
+    left: 170px;
 }
 .twitter{
-	top: 525px;
-	left: 325px;
+	top: 390px;
+	left: 225px;
 	font-size: 20px;
     position: absolute;  
     font-family: script; 

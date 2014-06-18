@@ -9,3 +9,10 @@ exports.getData = function(req, res){
       res.send(200, data[0]);
     });
 };
+
+exports.getAllPlayers = function(req, res){
+  console.log('hello');
+  Shots.find({}, 'name', {sort: {name:1}}, function(error,data){
+    res.send(200, data);
+  });
+};

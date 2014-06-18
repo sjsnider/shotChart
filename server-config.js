@@ -21,6 +21,7 @@ app.get('/', function(req, res){
   res.render('index');
 });
 app.get('/getData', handler.getData);
+app.get('/getAllPlayers', handler.getAllPlayers);
 
 // app.get('/links', util.checkUser, handler.fetchLinks);
 // app.post('/links', handler.saveLink);

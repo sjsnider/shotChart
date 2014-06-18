@@ -10,15 +10,11 @@
     <script src="data.js"></script>
     <script src="shotData.js"></script>
     <script src="court.js"></script>
-   <!-- <svg id="mySvg" width="80" height="80">
-      <defs>
-        <pattern id="court" height="494" width="650" patternUnits='userSpaceOnUse' >
-          <image x="0" y="0" height="494" width="650"  xlink:href="nba-halfcourt.png"></image>
-        </pattern>
-      </defs> -->
-      
+      <select id="players" onchange="displayData(this)">
+        <option value=''></option>
+      </select>
       <img id="smallone" src="monta.png">
-      <span class ="playerName">Monta Ellis<br></span><span class = "playerSeason">2013-2014 season</span>
+      <span class = "playerSeason">2013-2014 season</span>
       <span class ="twitter">By: @sjsnider</span>
     <p class="gameNum"></p>
   </body> 

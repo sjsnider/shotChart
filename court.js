@@ -7,8 +7,8 @@ var svg = d3.select('body').append('svg')
 svg.selectAll('image').data(['nba-halfcourt.png']).enter()
     .append('image')
     .attr('xlink:href',function(d){return d;})
-    .attr('height', 494)
-    .attr('width', 650);
+    .attr('height', 418)
+    .attr('width', 550);
 
 var initialData = function(data){
   $(function() {
@@ -33,21 +33,16 @@ var initialData = function(data){
                           return d.attempts/2;
                         } else{
                           return d.attempts*2;
-                        } //d.attempts/5;
+                        }
                       })
                       .attr('shotPct', function(d){
                         return d.shotPct;
                       })
                       .attr('fill', function(d){
-                        //if(d.makes/d.attempts>=0.5) {
-                        // if(d.shotPct>=.5){
-                        //   return '#00FF00';
-                        // } else {
-                        //   return '#FF0000';
-                        // }
                         var avgByDist = getAvgByDist(d.distance);
                         var shotPct = d.shotPct*100;
                         return getColorRange(shotPct-avgByDist);
+                        debugger; 
                       })
                       .attr('diff', function(d){
                         var avgByDist = getAvgByDist(d.distance);
@@ -68,14 +63,6 @@ var nextSet = function(data, random, gameNum){
   var indexArr=[];
   var curR;
   for(k=0;k<data.length;k++){
-    // svg.selectAll('circle').each(function(){
-    //   d3.select(this).filter(function(d){
-    //     if(axes.x(data[k].x) === parseFloat(d3.select(this).attr('cx')) && axes.y(data[k].y) === parseFloat(d3.select(this).attr('cy'))){
-    //       debugger;
-    //       indexArr.push(k);
-    //       return true;
-    //     }
-    //   })
     d3.selectAll('circle').filter(function(d){
       var newCy, newCx;
       if(data[k].y < 47) {
@@ -84,20 +71,12 @@ var nextSet = function(data, random, gameNum){
         newCy = axes.y(data[k].y-56);
       }
       newCx = axes.x(data[k].x);
-      debugger;
       if (newCy===parseFloat(this.attributes.cy.value) && newCx===parseFloat(this.attributes.cx.value)){
         indexArr.push(k);
         return true;
       } else {
         return false;
       }
-
-      // if(data[k].x === d.x && data[k].y === d.y){
-      //   
-      //   return true; 
-      // }else{
-      //   return false;
-      // }
     })
     .attr('makes', function(d){
       var curMakes = parseFloat(this.attributes.makes.value);
@@ -121,27 +100,19 @@ var nextSet = function(data, random, gameNum){
     .attr('shotPct', function(d){
       var makes = parseFloat(this.attributes.makes.value);
       var attempts = parseFloat(this.attributes.attempts.value);
-      debugger;
       return makes/attempts;
     })
     .attr('fill', function(d){
-      //if(d.makes/d.attempts>=0.5) {
-      // if(parseFloat(this.attributes.shotPct.value)>=.5){
-      //   return '#00FF00';
-      // } else {
-      //   return '#FF0000';
-      // }
       var avgByDist = getAvgByDist(d.distance);
-      var shotPct = d.shotPct*100;
+      var shotPct = parseFloat(this.attributes.shotPct.value)*100;
       return getColorRange(shotPct-avgByDist);
     })
     .attr('diff', function(d){
       var avgByDist = getAvgByDist(d.distance);
-      var shotPct = d.shotPct*100;
+      var shotPct = parseFloat(this.attributes.shotPct.value)*100;
       return shotPct-avgByDist;
     })
   }
-  // debugger;
   for(var x=indexArr.length-1; x>=0; x--){
     data.splice(indexArr[x],1);
   }
@@ -157,16 +128,6 @@ var nextSet = function(data, random, gameNum){
                           return axes.y(d.y-56);
                         }
                       })
-                      // .on('mouseover', function(d){
-                      //   d3.select(this).transition().duration(1000)
-                      //     .attr('r', 40);
-                      //   // d3.select(this).append('text')
-                      //   //   .text(function(){return "yoyo";})
-                      // })
-                      // .on('mouseout', function(d){
-                      //   d3.select(this).transition().duration(1000)
-                      //     .attr('r', 10);
-                      // })
                       .attr('r', 0)
                       .transition().duration(1000)
                       .attr('r',  function(d){
@@ -174,15 +135,9 @@ var nextSet = function(data, random, gameNum){
                           return d.attempts/2;
                         } else{
                           return d.attempts*2;
-                        } //d.attempts/5;
+                        }
                       })
                       .attr('fill', function(d){
-                        //if(d.makes/d.attempts>=0.5) {
-                        // if(d.shotPct>=.5){
-                        //   return '#00FF00';
-                        // } else {
-                        //   return '#FF0000';
-                        // }
                         var avgByDist = getAvgByDist(d.distance);
                         var shotPct = d.shotPct*100;
                         return getColorRange(shotPct-avgByDist);
@@ -216,50 +171,51 @@ var generateRandomString = function(length) {
 }
 var renderArray =[];
 $.get(
-    "/getData",
-    {name : 'Monta Ellis' },
-    function(data) {
-       // console.log('page content: ' + data.data);
-        var playersArray = JSON.parse(data.data);
-        // console.log(playersArray.shotsByGame);
-        var len = playersArray.shotsByGame.length;
-        console.log(len);
-        // var len = 6;
-        for (var x=0; x<len; x++){
-          renderArray.push(removeDupes(playersArray.shotsByGame[x].shots));
-        }
-        initialData(renderArray[0]);
-        console.log(renderArray[1]);
-        for(var i=1;i<len; i++){
-          console.log('hello');
-          var random = generateRandomString(8);
-          doSetTimeout(i, random);
-        }
+  "/getAllPlayers",
+  function(data){
+    var sel = document.getElementById('players');
+    for(var i=0;i<data.length;i++){
+      var opt = document.createElement('option');
+      opt.innerHTML=data[i].name;
+      opt.value = data[i].name;
+      sel.appendChild(opt);
     }
+  }
 );
+var timeouts = [];
+var displayData = function getComboA(sel) {
+  $('circle').remove();
+  for (var i=0; i<timeouts.length; i++) {
+    clearTimeout(timeouts[i]);
+  }
+  timeouts = [];
+  var value = sel.value;  
+  console.log(value);
+  $.get(
+      "/getData",
+      {name : value },
+      function(data) {
+          renderArray = [];
+          var playersArray = JSON.parse(data.data);
+          var len = playersArray.shotsByGame.length;
+          console.log(playersArray);
+          for (var x=0; x<len; x++){
+            renderArray.push(removeDupes(playersArray.shotsByGame[x].shots));
+          }
+          console.log(renderArray.length);
+          initialData(renderArray[0]);
+          for(var i=1;i<len; i++){
+            var random = generateRandomString(8);
+            doSetTimeout(i, random);
+          }
+      }
+  );
+}
 
 function doSetTimeout(i, random){
-  setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*1500);
+  timeouts.push(setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*1500));
 }
-console.log(len);
 
-
-              // });
-// debugger;
-// svg.selectAll('circle')
-//       .tween('custom', collisionDetectionAndMoveEnemies);
-
-// var collisionDetectionAndMoveEnemies = function (enemy) {
-//       debugger;
-//       // var domEnemy = d3.select(this);
-//       // var startPos =  { cx : parseFloat(domEnemy.attr('cx')), cy : parseFloat(domEnemy.attr('cy'))};
-//       // var endPos = { cx : enemy.cx, cy : enemy.cy};
-// };
-                    // shots.exit().remove();
-
-// var next = function(){
-//   alert('hello');
-// };
 
 
 
