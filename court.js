@@ -27,7 +27,7 @@ var initialData = function(data){
                         }
                       })
                       .attr('r', 0)
-                      .transition().duration(800)
+                      .transition().duration(300)
                       .attr('r',  function(d){
                         if (d.distance<=5){
                           return d.attempts/2;
@@ -96,7 +96,7 @@ var nextSet = function(data, random, gameNum){
       return totAttempts;
     })
     .attr('r', 1)
-    .transition().duration(800)
+    .transition().duration(300)
     .attr('r', function(d){
       if (d.distance<=5){
         return parseFloat(this.attributes.attempts.value)/2;
@@ -136,7 +136,7 @@ var nextSet = function(data, random, gameNum){
                         }
                       })
                       .attr('r', 0)
-                      .transition().duration(800)
+                      .transition().duration(300)
                       .attr('r',  function(d){
                         if (d.distance<=5){
                           return d.attempts/2;
@@ -237,7 +237,7 @@ var displayData = function getComboA(sel) {
 }
 
 function doSetTimeout(i, random){
-  timeouts.push(setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*900));
+  timeouts.push(setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*450));
 }
 
 
