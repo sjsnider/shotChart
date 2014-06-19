@@ -5,8 +5,8 @@ var player = {
 };
 
 var court ={
-  width: 550,
-  height: 418
+  width: 725,
+  height: 551
 };
 
 

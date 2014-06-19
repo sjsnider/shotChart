@@ -7,8 +7,8 @@ var svg = d3.select('body').append('svg')
 svg.selectAll('image').data(['img/nba-halfcourt.png']).enter()
     .append('image')
     .attr('xlink:href',function(d){return d;})
-    .attr('height', 418)
-    .attr('width', 550);
+    .attr('height', 551)
+    .attr('width', 725);
 
 var initialData = function(data){
   $(function() {

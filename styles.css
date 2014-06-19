@@ -2,7 +2,9 @@
 
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
-
+body{
+  text-align: center;
+}
 .board{
   border: 20px;
 }
@@ -26,8 +28,8 @@ Feel free to use it if you like. */
 */
 .gameNum {
   position: absolute; 
-  top:405px;
-  left:400px;
+  top:555px;
+  left:600px;
 	font-size: 35px;
 }
 
@@ -37,23 +39,23 @@ img{
 #description {
   position: absolute;   
   top: 0px;
-  left:0px;
+  left:350px;
 }
 
 #smallone{
-    top: 350px;
-    left: 65px;
+    top: 485px;
+    left: 275px;
     position: absolute;   
 }
 #key{
-    top: 390px;
-    left: 385px;
+    top: 520px;
+    left: 785px;
     position: absolute;   
 }
 
 #players{
-    top: 15px;
-    left: 205px;
+    top: 55px;
+    left: 555px;
     position: absolute;   
 }
 
@@ -66,12 +68,12 @@ img{
 
 }
 .playerSeason{
-	top: 30px;
-    left: 170px;
+	top: 70px;
+    left: 520px;
 }
 .twitter{
-	top: 390px;
-	left: 225px;
+	top: 510px;
+	left: 580px;
 	font-size: 20px;
     position: absolute;  
     font-family: script; 
