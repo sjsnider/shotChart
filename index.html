@@ -4,12 +4,7 @@
     <link rel='stylesheet' href='styles.css'>
   </head>
   <body>
-    <script src="d3.js" charset="utf-8"></script>
-    <script src="jquery.js"></script>
-    <script src="jquery.parse.min.js"></script>
-    <script src="data.js"></script>
-    <script src="shotData.js"></script>
-    <script src="court.js"></script>
+  <div id="container">
     <span id="description"> Select a player to see their shot chart progress from the beginning of the season to the end.<br>The bigger the circle, the more shots from that exact location<br>(only have pictures for a handful of players right now, contact me through twitter with requests)</span>
       <select id="players" onchange="displayData(this)">
         <option value=''></option>
@@ -19,5 +14,12 @@
       <span class = "playerSeason">2013-2014 season</span>
       <span class ="twitter">By: <a href="https://twitter.com/sjsnider">@sjsnider</a><br><br><a href="http://scottjsnider.azurewebsites.net/">scottjsnider.com</a></span>
     <p class="gameNum"></p>
+    <script src="d3.js" charset="utf-8"></script>
+    <script src="jquery.js"></script>
+    <script src="jquery.parse.min.js"></script>
+    <script src="data.js"></script>
+    <script src="shotData.js"></script>
+    <script src="court.js"></script>
+    </div>
   </body> 
 </html>

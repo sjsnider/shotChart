@@ -1,5 +1,5 @@
 var len;
-var svg = d3.select('body').append('svg')
+var svg = d3.select('#container').append('svg')
             .attr('width', court.width)
             .attr('height', court.height)
             .attr('fill', 'url(#img/court)');
@@ -237,7 +237,7 @@ var displayData = function getComboA(sel) {
 }
 
 function doSetTimeout(i, random){
-  timeouts.push(setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*1500));
+  timeouts.push(setTimeout(function(){ nextSet(renderArray[i], random, i+1);}, i*900));
 }
 
 
