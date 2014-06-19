@@ -9,10 +9,10 @@ svg.selectAll('image').data(['img/nba-halfcourt.png']).enter()
     .attr('xlink:href',function(d){return d;})
     .attr('height', 551)
     .attr('width', 725);
-
+var numGames;
 var initialData = function(data){
   $(function() {
-    $('.gameNum').text('Game 1');
+    $('.gameNum').text('Game 1 of ' + numGames);
   });
   var shots = svg.selectAll('circle.a').data(data).enter().append('circle')
                       .style("stroke", "black")
@@ -58,7 +58,11 @@ var initialData = function(data){
 };
 
 var nextSet = function(data, random, gameNum){
-  $('.gameNum').text('Game ' + gameNum);
+  if(gameNum===numGames){
+    $('.gameNum').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Done!');
+  } else {
+    $('.gameNum').text('Game ' + gameNum + ' of ' + numGames);
+  }
   var indexArr=[];
   var curR;
   for(k=0;k<data.length;k++){
@@ -217,14 +221,14 @@ var displayData = function getComboA(sel) {
       function(data) {
           renderArray = [];
           var playersArray = JSON.parse(data.data);
-          var len = playersArray.shotsByGame.length;
+          numGames = playersArray.shotsByGame.length;
           console.log(playersArray);
-          for (var x=0; x<len; x++){
+          for (var x=0; x<numGames; x++){
             renderArray.push(removeDupes(playersArray.shotsByGame[x].shots));
           }
           console.log(renderArray.length);
           initialData(renderArray[0]);
-          for(var i=1;i<len; i++){
+          for(var i=1;i<numGames; i++){
             var random = generateRandomString(8);
             doSetTimeout(i, random);
           }
