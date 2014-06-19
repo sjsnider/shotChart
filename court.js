@@ -2,9 +2,9 @@ var len;
 var svg = d3.select('body').append('svg')
             .attr('width', court.width)
             .attr('height', court.height)
-            .attr('fill', 'url(#court)');
+            .attr('fill', 'url(#img/court)');
 
-svg.selectAll('image').data(['nba-halfcourt.png']).enter()
+svg.selectAll('image').data(['img/nba-halfcourt.png']).enter()
     .append('image')
     .attr('xlink:href',function(d){return d;})
     .attr('height', 418)
@@ -42,7 +42,6 @@ var initialData = function(data){
                         var avgByDist = getAvgByDist(d.distance);
                         var shotPct = d.shotPct*100;
                         return getColorRange(shotPct-avgByDist);
-                        debugger; 
                       })
                       .attr('diff', function(d){
                         var avgByDist = getAvgByDist(d.distance);
@@ -79,7 +78,11 @@ var nextSet = function(data, random, gameNum){
       }
     })
     .attr('makes', function(d){
-      var curMakes = parseFloat(this.attributes.makes.value);
+      var curMakes;
+      if(this.attributes.makes !== 'undefined')
+        curMakes = parseFloat(this.attributes.makes.value);
+      else
+        curMakes = 0;
       var totMakes = data[k].makes + curMakes;
       return totMakes;
     })
@@ -182,14 +185,31 @@ $.get(
     }
   }
 );
+
+var linkCheck =function (url)
+{
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status!=404;
+}
 var timeouts = [];
 var displayData = function getComboA(sel) {
+  $('.playerPic').remove();
+  var value = sel.value;  
+  var img = document.getElementById('smallone');
+  var pic = document.createElement('img');
+  pic.setAttribute("class", "playerPic");
+  pic.setAttribute("width", "200");
+  pic.setAttribute("height", "145");
+  pic.src = 'img/' + value + '.png';
+  if(linkCheck(pic.src))
+    img.appendChild(pic);
   $('circle').remove();
   for (var i=0; i<timeouts.length; i++) {
     clearTimeout(timeouts[i]);
   }
   timeouts = [];
-  var value = sel.value;  
   console.log(value);
   $.get(
       "/getData",
