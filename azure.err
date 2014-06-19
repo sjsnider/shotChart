@@ -1,0 +1,25 @@
+Wed Jun 18 2014 22:46:24 GMT-0700 (PDT):
+{ [Error: Server returned error in RSTR - ErrorCode: NONE : FaultMessage: NONE]
+  stack: [Getter/Setter],
+  __frame: 
+   { name: '__7',
+     line: 171,
+     file: '/usr/local/lib/node_modules/azure-cli/lib/commands/account._js',
+     prev: undefined,
+     active: false,
+     offset: 35,
+     col: 31 },
+  rawStack: [Getter] }
+Error: Server returned error in RSTR - ErrorCode: NONE : FaultMessage: NONE
+    at Logger.createError (/usr/local/lib/node_modules/azure-cli/node_modules/adal-node/lib/log.js:196:13)
+    at WSTrustResponse.parse (/usr/local/lib/node_modules/azure-cli/node_modules/adal-node/lib/wstrust-response.js:243:23)
+    at WSTrustRequest._handleRSTR (/usr/local/lib/node_modules/azure-cli/node_modules/adal-node/lib/wstrust-request.js:150:21)
+    at /usr/local/lib/node_modules/azure-cli/node_modules/adal-node/lib/wstrust-request.js:183:12
+    at Request._callback (/usr/local/lib/node_modules/azure-cli/node_modules/adal-node/lib/util.js:116:5)
+    at Request.self.callback (/usr/local/lib/node_modules/azure-cli/node_modules/request/request.js:129:22)
+    at Request.EventEmitter.emit (events.js:98:17)
+    at Request.<anonymous> (/usr/local/lib/node_modules/azure-cli/node_modules/request/request.js:873:14)
+    at Request.EventEmitter.emit (events.js:117:20)
+    at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/azure-cli/node_modules/request/request.js:824:12)
+    at __7 (/usr/local/lib/node_modules/azure-cli/lib/commands/account._js:206:31)
+
