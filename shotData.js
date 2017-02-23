@@ -80,16 +80,7 @@ var removeDupes = function(dupArray){
   }
   return dupArray;
 };
-// var data = getData();
-// // debugger;
-// var alreadyHave = function(player, array){
-//   for (var x=0; x<array.length; x++){ 
-//     if (array[x].name===player){
-//       return x;
-//     }
-//   }
-//   return false;
-// };
+
 
 // var alreadyHaveDate = function(date, obj){
 //   for (var x=0; x<obj.shotsByGame.length; x++){
